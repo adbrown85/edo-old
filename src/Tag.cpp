@@ -34,10 +34,10 @@ void Tag::clear() {
 }
 
 
-/** @throw Exception if tag doesn't have an attribute named @e key. */
+/** @throw BasicException if tag doesn't have an attribute named @e key. */
 void Tag::error(string key) const {
 	
-	Exception e;
+	BasicException e;
 	
 	// Build and throw message
 	e << getLocation();
@@ -48,10 +48,10 @@ void Tag::error(string key) const {
 }
 
 
-/** @throw Exception if attribute @e key can't be converted to a @e type. */
+/** @throw BasicException if attribute @e key can't be converted to a @e type. */
 void Tag::error(string key, string type) const {
 	
-	Exception e;
+	BasicException e;
 	
 	// Build and throw message
 	e << getLocation();
@@ -167,26 +167,6 @@ bool Tag::get(const string &key, int &value, bool required) const {
 		value = 0;
 	else
 		error(key);
-	return false;
-}
-
-
-bool Tag::get(const string &key, Vector &value, bool required) const {
-	
-	map<string,string>::const_iterator ai;
-	stringstream stream;
-	
-	// Find and convert
-	ai = attributes.find(key);
-	if (ai != attributes.end()) {
-		stream << ai->second;
-		for (int i=0; i<4 && stream; ++i)
-			stream >> value[i];
-		return true;
-	}
-	else if (required) {
-		error(key);
-	}
 	return false;
 }
 

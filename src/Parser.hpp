@@ -9,7 +9,7 @@
 #include "common.h"
 #include <fstream>
 #include <vector>
-#include "Exception.hpp"
+#include "BasicException.hpp"
 #include "Tag.hpp"
 #include "Text.hpp"
 using namespace std;

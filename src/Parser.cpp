@@ -114,7 +114,7 @@ void Parser::findKeyValue(const string &attribute,
 
 /** Returns the key in an attribute key/value pair.
  * 
- * @throw Exception if attribute does not have an equals sign.
+ * @throw BasicException if attribute does not have an equals sign.
  */
 string Parser::findKeyIn(const string &text) {
 	
@@ -123,7 +123,7 @@ string Parser::findKeyIn(const string &text) {
 	// Return up to equals sign
 	index = text.find('=');
 	if (index > text.length()) {
-		throw Exception("[Parser] Detected attribute without equals sign.");
+		throw BasicException("[Parser] Detected attribute without equals sign.");
 	}
 	return Text::trim(text.substr(0, index));
 }
@@ -131,7 +131,7 @@ string Parser::findKeyIn(const string &text) {
 
 /** Returns the value in an attribute key/value pair.
  * 
- * @throw Exception if there is no text between the quotes.
+ * @throw BasicException if there is no text between the quotes.
  */
 string Parser::findValueIn(const string &text) {
 	
@@ -140,7 +140,7 @@ string Parser::findValueIn(const string &text) {
 	// Return after equals sign
 	index = text.find('=');
 	if ((text.length() - index) <= 3) {
-		throw Exception("[Parser] Detected empty attribute.");
+		throw BasicException("[Parser] Detected empty attribute.");
 	}
 	return Text::trim(text.substr(index+1), " '\"");
 }
@@ -183,7 +183,7 @@ void Parser::open(string filename) {
 	this->filename = filename;
 	file.open(filename.c_str(), ios_base::binary);
 	if (!file) {
-		Exception e;
+		BasicException e;
 		e << "[Parser] Could not open file '" << filename << "'.";
 		throw e;
 	}
@@ -205,7 +205,7 @@ void Parser::parse() {
 	try {
 		while (file) {
 			if (character != '<') {
-				throw Exception("[Parser] Tags must start with '<'.");
+				throw BasicException("[Parser] Tags must start with '<'.");
 			} else if (match("<!--")) {
 				skip("-->");
 			} else {
@@ -217,9 +217,9 @@ void Parser::parse() {
 			skipWhitespace();
 		}
 		file.close();
-	} catch (Exception e) {
+	} catch (BasicException e) {
 		file.close();
-		Exception ex;
+		BasicException ex;
 		ex << Tag::toLocation(filename, lineNumber) << e;
 		throw ex;
 	}

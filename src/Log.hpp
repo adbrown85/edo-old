@@ -23,7 +23,6 @@ public:
 
 
 /** @brief Utility for logging messages.
- * @ingroup system
  * @warning Assumes messages don't include newline character.
  */
 class Log {
@@ -48,7 +47,7 @@ inline Log::iterator Log::begin() {return lines.begin();}
 inline Log::iterator Log::end() {return lines.end();}
 
 
-/** Global log for Gander. */
+/** Global log */
 extern Log glog;
 
 #endif

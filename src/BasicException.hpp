@@ -1,30 +1,28 @@
 /*
- * Exception.hpp
+ * BasicException.hpp
  * 
  * Author
  *     Andrew Brown <adb1413@rit.edu>
  */
-#ifndef EXCEPTION_HPP
-#define EXCEPTION_HPP
+#ifndef EDO_BASIC_EXCEPTION_HPP
+#define EDO_BASIC_EXCEPTION_HPP
 #include "common.h"
 #include <exception>
 using namespace std;
 
 
-/** @brief %Exception backed by a stringstream for easy message building.
- * @ingroup system
+/** @brief %BasicException backed by a stringstream for easy message building.
  */
-class Exception : public exception {
+class BasicException : public exception {
 public:
-	Exception() {};
-	Exception(const Exception &e);
-	Exception(const string &message);
-	~Exception() throw() {}
+	BasicException() {};
+	BasicException(const BasicException &e);
+	BasicException(const string &message);
+	~BasicException() throw() {}
 	string getMessage() const;
 	const char* what() const throw();
 	ostream& operator<<(const string &message);
-	ostream& operator<<(const Exception &e);
-	friend ostream& operator<<(ostream& stream, Exception &e);
+	friend ostream& operator<<(ostream& stream, BasicException &e);
 private:
 	ostringstream buffer;
 };
