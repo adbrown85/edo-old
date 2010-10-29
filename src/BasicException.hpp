@@ -22,7 +22,7 @@ public:
 	string getMessage() const;
 	const char* what() const throw();
 	ostream& operator<<(const string &message);
-	friend ostream& operator<<(ostream& stream, BasicException &e);
+	ostream& operator<<(const BasicException &e);
 private:
 	ostringstream buffer;
 };

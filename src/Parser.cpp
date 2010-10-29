@@ -220,7 +220,7 @@ void Parser::parse() {
 	} catch (BasicException e) {
 		file.close();
 		BasicException ex;
-		ex << Tag::toLocation(filename, lineNumber) << e;
+		ex << Tag::toLocation(filename, lineNumber) << e.what();
 		throw ex;
 	}
 }

@@ -12,28 +12,13 @@ int main(int argc,
 	
 	int line=45;
 	
-	// Start
-	cout << endl;
-	cout << "****************************************" << endl;
-	cout << "Exception" << endl;
-	cout << "****************************************" << endl;
-	cout << endl;
-	
 	// Test
 	try {
-		Exception e;
-		e << "[Gander] This is an exception from " << line << ".";
+		BasicException e;
+		e << "This is an exception from " << line << ".";
 		throw e;
-	} catch (Exception &e) {
-		cout << e << endl;
+	} catch (BasicException &e) {
+		cout << e.what() << endl;
 	}
-	
-	// Finish
-	cout << endl;
-	cout << "****************************************" << endl;
-	cout << "Exception" << endl;
-	cout << "****************************************" << endl;
-	cout << endl;
-	return 0;
 }
 

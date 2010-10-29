@@ -27,8 +27,8 @@ int main(int argc, char **argv) {
 		parser.open("Parser.xml");
 		parser.print();
 		cout << "Line number: " << parser.getLineNumber() << endl;
-	} catch (Exception &e) {
-		cerr << e << endl;
+	} catch (BasicException &e) {
+		cerr << e.what() << endl;
 	}
 	
 	// Finish

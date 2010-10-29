@@ -28,6 +28,12 @@ ostream& BasicException::operator<<(const string &message) {
 	return buffer;
 }
 
+ostream& BasicException::operator<<(const BasicException &e) {
+	
+	buffer << e.getMessage();
+	return buffer;
+}
+
 const char* BasicException::what() const throw() {
 	
 	return buffer.str().c_str();
