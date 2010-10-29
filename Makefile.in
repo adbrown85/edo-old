@@ -1,0 +1,172 @@
+# @configure_input@
+
+# Package
+package      := @PACKAGE_NAME@
+version      := @PACKAGE_VERSION@
+tarname      := @PACKAGE_TARNAME@
+
+# Directories
+prefix       := @prefix@
+exec_prefix  := @exec_prefix@
+bindir       := @bindir@
+srcdir       := src
+testdir      := test
+libdir       := @libdir@
+includedir   := @includedir@
+datarootdir  := @datarootdir@
+datadir      := @datadir@
+docdir       := @docdir@
+htmldir      := @htmldir@
+
+# Tools
+CXX          := @CXX@
+INCLUDES     := -I./ -I$(srcdir)/
+DEFS         := @DEFS@
+CXXFLAGS     := @CXXFLAGS@ $(DEFS) $(INCLUDES)
+LIBS         := @LIBS@
+LDFLAGS      := @LDFLAGS@ $(LIBS)
+ARFLAGS      := -cr
+INSTALL      := @INSTALL@
+
+# Files
+sources      := ${wildcard $(srcdir)/*.cpp}
+objects      := ${subst .cpp,.o,$(sources)}
+headers      := ${subst .cpp,.hpp,$(sources)}
+mains        := ${wildcard $(testdir)*.cxx}
+archive      := lib$(tarname).a
+tests        := ${subst .cxx,,$(mains)}
+tarball      := $(tarname)-$(version)-src.tar.gz
+zipfile      := $(tarname)-$(version)-src.zip
+distdir      := $(tarname)-$(version)
+VPATH        := $(srcdir) $(testdir)
+depends      := ${subst .cpp,.d,$(sources)}
+tdepends     := ${subst .cxx,.t,$(mains)}
+
+# Phony targets
+doc_targets  := html install-html
+.PHONY: all $(modules) clean mostlyclean tests $(doctargets) dump
+.DEFAULT: all
+all: $(archive)
+clean: mostlyclean
+	@echo "  Removing dependencies..."
+	@$(RM) $(depends)
+	@$(RM) $(tdepends)
+mostlyclean:
+	@echo "  Removing objects..."
+	@$(RM) $(objects)
+	@echo "  Removing archive..."
+	@$(RM) $(archive)
+	@echo "  Removing tests..."
+	@$(RM) $(tests)
+check:
+	@echo "  MODULES  = $(modules)"
+$(doc_targets):
+	@$(MAKE) -C doc $@
+dump:
+	@echo "  modules = $(modules)"
+	@echo "  sources = $(sources)"
+	@echo "  objects = $(objects)"
+	@echo "  mains   = $(mains)"
+	@echo "  tests   = $(tests)"
+	@echo "  VPATH   = $(VPATH)"
+
+# Objects and archive
+%.o: %.cpp %.hpp
+	@echo "  $<"
+	@$(CXX) $(CXXFLAGS) -o $@ -c $<
+	@$(AR) $(ARFLAGS) $(archive) $@
+$(archive): $(objects)
+
+# Tests
+%: %.cxx %.o
+	@echo "  $<"
+	@$(CXX) $(CXXFLAGS) -o $@ $< $(archive) $(LDFLAGS)
+tests: $(tests)
+$(tests):
+
+# Dependencies
+%.d: %.hpp
+	@echo "  Generating dependencies for $<..."
+	@$(CXX) $(CXXFLAGS) -MM $< > $@
+ifneq ($(findstring clean,$(MAKECMDGOALS)),clean)
+  -include $(depends)
+endif
+%.t: %.cxx
+	@echo "  Generating dependencies for $<..."
+	@$(CXX) $(CXXFLAGS) -MM $< -MT ${subst .cxx,,$<} \
+        | sed 's/.hpp/.o/g' >> $@;
+ifeq ($(findstring tests,$(MAKECMDGOALS)),tests)
+  -include $(tdepends)
+endif
+
+# Installation
+.PHONY: install uninstall
+install:
+	@echo "  Installing archive in $(libdir)..."
+	@$(INSTALL) -d $(libdir)
+	@$(INSTALL) -m 0644 $(archive) $(libdir)
+	@echo "  Installing headers in $(includedir)/$(tarname)..."
+	@$(INSTALL) -d $(includedir)/$(tarname)
+	@$(INSTALL) -m 0644 config.h $(includedir)/$(tarname)
+	@$(INSTALL) -m 0644 $(srcdir)/common.h $(includedir)/$(tarname)
+	@$(INSTALL) -m 0644 $(srcdir)/*.hpp $(includedir)/$(tarname)
+uninstall:
+	@echo "  Uninstalling archive from $(libdir)..."
+	@$(RM) $(libdir)/$(archive)
+	@echo "  Uninstalling headers from $(includedir)/$(tarname)..."
+	@$(RM) -r $(includedir)/$(tarname)
+
+# Distribution
+.PHONY: FORCE dist distcheck
+dist: FORCE $(distdir) $(tarball) $(zipfile) CLEANUP
+FORCE:
+	@-$(RM) $(tarball) &> /dev/null
+	@-$(RM) $(zipfile) &> /dev/null
+	@-$(RM) -r $(distdir) &> /dev/null
+CLEANUP:
+	@$(RM) -r $(distdir)
+$(tarball): 
+	@echo "  Packaging tarball..."
+	@tar -czf $(tarball) $(distdir)
+$(zipfile):
+	@echo "  Packaging zipfile..."
+	@zip -r $(zipfile) $(distdir) > /dev/null
+$(distdir):
+	@echo "  Copying files..."
+	@mkdir $(distdir)
+	@cp config.guess $(distdir)
+	@cp config.in $(distdir)
+	@cp config.sub $(distdir)
+	@cp configure $(distdir)
+	@cp install-sh $(distdir)
+	@cp Makefile.in $(distdir)
+	@echo "    src"
+	@mkdir $(distdir)/src
+	@cp src/Makefile.in $(distdir)/src
+	@cp src/common.h $(distdir)/src
+        @mkdir $(distdir)/src
+        @cp src/*.cpp $(distdir)/src
+        @cp src/*.hpp $(distdir)/src
+        @cp src/*.d $(distdir)/src
+	@echo "    doc"
+	@mkdir $(distdir)/doc
+	@cp doc/Makefile.in $(distdir)/doc
+	@cp doc/doxyfile $(distdir)/doc
+	@cp doc/doxygen.css $(distdir)/doc
+distcheck: $(tarball)
+	@echo "  Unpacking and checking tarball."
+	@tar -zxf $(tarball) $(distdir)
+	@cd $(distdir) && ./configure
+	@$(MAKE) -C $(distdir) all
+	@$(MAKE) -C $(distdir) clean
+	@$(RM) -r $(distdir)
+	@echo "  Package $(tarball) is ready for distribution."
+distclean: clean
+	@echo "  Removing generated files..."
+	@$(RM) -r autom4te.cache
+	@$(RM) config.log
+	@$(RM) config.status
+	@$(RM) Makefile
+	@$(RM) config.h
+	@$(RM) config.in~
+	@$(RM) $(tarball)
