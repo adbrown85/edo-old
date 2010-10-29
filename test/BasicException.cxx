@@ -4,7 +4,7 @@
  * Author
  *     Andrew Brown <adb1413@rit.edu>
  */
-#include "Exception.hpp"
+#include "BasicException.hpp"
 
 
 int main(int argc,

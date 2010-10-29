@@ -6,7 +6,6 @@
  */
 #include <iostream>
 #include "Parser.hpp"
-using namespace std;
 
 
 /**
