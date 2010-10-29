@@ -144,10 +144,10 @@ $(distdir):
 	@mkdir $(distdir)/src
 	@cp src/Makefile.in $(distdir)/src
 	@cp src/common.h $(distdir)/src
-        @mkdir $(distdir)/src
-        @cp src/*.cpp $(distdir)/src
-        @cp src/*.hpp $(distdir)/src
-        @cp src/*.d $(distdir)/src
+	@mkdir $(distdir)/src
+	@cp src/*.cpp $(distdir)/src
+	@cp src/*.hpp $(distdir)/src
+	@cp src/*.d $(distdir)/src
 	@echo "    doc"
 	@mkdir $(distdir)/doc
 	@cp doc/Makefile.in $(distdir)/doc
