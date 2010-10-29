@@ -32,7 +32,7 @@ INSTALL      := @INSTALL@
 sources      := ${wildcard $(srcdir)/*.cpp}
 objects      := ${subst .cpp,.o,$(sources)}
 headers      := ${subst .cpp,.hpp,$(sources)}
-mains        := ${wildcard $(testdir)*.cxx}
+mains        := ${wildcard $(testdir)/*.cxx}
 archive      := lib$(tarname).a
 tests        := ${subst .cxx,,$(mains)}
 tarball      := $(tarname)-$(version)-src.tar.gz
@@ -44,7 +44,7 @@ tdepends     := ${subst .cxx,.t,$(mains)}
 
 # Phony targets
 doc_targets  := html install-html
-.PHONY: all $(modules) clean mostlyclean tests $(doctargets) dump
+.PHONY: all clean mostlyclean tests $(doctargets) dump
 .DEFAULT: all
 all: $(archive)
 clean: mostlyclean
@@ -58,12 +58,9 @@ mostlyclean:
 	@$(RM) $(archive)
 	@echo "  Removing tests..."
 	@$(RM) $(tests)
-check:
-	@echo "  MODULES  = $(modules)"
 $(doc_targets):
 	@$(MAKE) -C doc $@
 dump:
-	@echo "  modules = $(modules)"
 	@echo "  sources = $(sources)"
 	@echo "  objects = $(objects)"
 	@echo "  mains   = $(mains)"
