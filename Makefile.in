@@ -73,13 +73,14 @@ dump:
 	@$(CXX) $(CXXFLAGS) -o $@ -c $<
 	@$(AR) $(ARFLAGS) $(archive) $@
 $(archive): $(objects)
+${notdir $(objects)}:
 
 # Tests
-%: %.cxx %.o
+%: %.cxx
 	@echo "  $<"
 	@$(CXX) $(CXXFLAGS) -o $@ $< $(archive) $(LDFLAGS)
-tests: $(tests)
-$(tests):
+tests: ${notdir $(tests)}
+${notdir $(tests)}:
 
 # Dependencies
 %.d: %.hpp
