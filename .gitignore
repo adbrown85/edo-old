@@ -1,5 +1,6 @@
 *.o
 *.d
+*.t
 Makefile
 configure
 config.log
