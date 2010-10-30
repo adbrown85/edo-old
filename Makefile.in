@@ -17,10 +17,13 @@ datarootdir  := @datarootdir@
 datadir      := @datadir@
 docdir       := @docdir@
 htmldir      := @htmldir@
+smoduledirs  := ${filter %/,${wildcard $(srcdir)/*/}}
+tmoduledirs  := ${filter %/,${wildcard $(testdir)/*/}}
+modules      := ${patsubst $(srcdir)/%/,%,$(smoduledirs)}
 
 # Tools
 CXX          := @CXX@
-INCLUDES     := -I./ -I$(srcdir)/
+INCLUDES     := -I./ -I$(srcdir)/ ${addprefix -I,$(smoduledirs)}
 DEFS         := @DEFS@
 CXXFLAGS     := @CXXFLAGS@ $(DEFS) $(INCLUDES)
 LIBS         := @LIBS@
@@ -29,16 +32,16 @@ ARFLAGS      := -cr
 INSTALL      := @INSTALL@
 
 # Files
-sources      := ${wildcard $(srcdir)/*.cpp}
+sources      := ${foreach m,$(modules),${wildcard $(srcdir)/$(m)/*.cpp}}
 objects      := ${subst .cpp,.o,$(sources)}
 headers      := ${subst .cpp,.hpp,$(sources)}
-mains        := ${wildcard $(testdir)/*.cxx}
+mains        := ${wildcard $(testdir)/*/*.cxx}
 archive      := lib$(tarname).a
 tests        := ${subst .cxx,,$(mains)}
 tarball      := $(tarname)-$(version)-src.tar.gz
 zipfile      := $(tarname)-$(version)-src.zip
 distdir      := $(tarname)-$(version)
-VPATH        := $(srcdir) $(testdir)
+VPATH        := $(srcdir) $(testdir) $(smoduledirs) $(tmoduledirs)
 depends      := ${subst .cpp,.d,$(sources)}
 tdepends     := ${subst .cxx,.t,$(mains)}
 
@@ -61,18 +64,26 @@ mostlyclean:
 $(doc_targets):
 	@$(MAKE) -C doc $@
 dump:
+	@echo "  modules = $(modules)"
 	@echo "  sources = $(sources)"
 	@echo "  objects = $(objects)"
 	@echo "  mains   = $(mains)"
 	@echo "  tests   = $(tests)"
 	@echo "  VPATH   = $(VPATH)"
 
+# Modules
+.PHONY: $(modules)
+define module
+$(1): $${notdir $${filter $(srcdir)/$(1)/%.o,$(objects)}}
+endef
+${foreach m,$(modules),${eval ${call module,$(m)}}}
+
 # Objects and archive
 %.o: %.cpp %.hpp
 	@echo "  $<"
-	@$(CXX) $(CXXFLAGS) -o $@ -c $<
-	@$(AR) $(ARFLAGS) $(archive) $@
-$(archive): $(objects)
+	@$(CXX) $(CXXFLAGS) -o ${dir $<}$@ -c $<
+	@$(AR) $(ARFLAGS) $(archive) ${dir $<}$@
+$(archive): ${notdir $(objects)}
 ${notdir $(objects)}:
 
 # Tests

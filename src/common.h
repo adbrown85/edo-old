@@ -22,13 +22,4 @@
 #include <sstream>
 #include <string>
 
-// GLEW
-#ifdef HAVE_GLEW
-#include <GL/glew.h>
-#endif
-
-// OpenGL
-#define GL_GLEXT_PROTOTYPES
-#include <GL/gl.h>
-
 #endif
