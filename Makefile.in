@@ -81,8 +81,8 @@ ${foreach m,$(modules),${eval ${call module,$(m)}}}
 # Objects and archive
 %.o: %.cpp %.hpp
 	@echo "  $<"
-	@$(CXX) $(CXXFLAGS) -o ${dir $<}$@ -c $<
-	@$(AR) $(ARFLAGS) $(archive) ${dir $<}$@
+	@$(CXX) $(CXXFLAGS) -o ${dir $<}${notdir $@} -c $<
+	@$(AR) $(ARFLAGS) $(archive) ${dir $<}${notdir $@}
 $(archive): ${notdir $(objects)}
 ${notdir $(objects)}:
 
