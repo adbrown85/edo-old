@@ -41,5 +41,6 @@ int main(int argc, char *argv[]) {
 	
 	test.testThrowCatch();
 	cout << "ALL TESTS PASSED" << endl;
+	return 0;
 }
 
