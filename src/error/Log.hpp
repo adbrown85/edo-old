@@ -10,7 +10,6 @@
 #include <iomanip>                      // For floats
 using namespace std;
 
-
 /* Type definitions */
 typedef basic_ostream< char,char_traits<char> > char_ostream_t;
 typedef char_ostream_t& (*manip_func_t)(char_ostream_t&);
@@ -20,7 +19,6 @@ class LogListener {
 public:
 	virtual void onLogUpdate(const string &text) = 0;
 };
-
 
 /** @brief Utility for logging messages.
  * @warning Assumes messages don't include newline character.
@@ -43,9 +41,12 @@ private:
 	ostringstream buff;
 	list<LogListener*> listeners;
 };
-inline Log::iterator Log::begin() {return lines.begin();}
-inline Log::iterator Log::end() {return lines.end();}
 
+/** @return Iterator to the first line in the log. */
+inline Log::iterator Log::begin() {return lines.begin();}
+
+/** @return Iterator just past the last line in the log. */
+inline Log::iterator Log::end() {return lines.end();}
 
 /** Global log */
 extern Log glog;
