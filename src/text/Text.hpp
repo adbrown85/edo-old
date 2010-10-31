@@ -11,7 +11,7 @@ using namespace std;
 
 
 /** @brief Utility for working with text and strings.
- * @ingroup system
+ * @ingroup text
  */
 class Text {
 public:

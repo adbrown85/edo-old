@@ -6,7 +6,6 @@
  */
 #include "Text.hpp"
 
-
 /** @return Number of occurrences of @e character in @e text. */
 int Text::count(const string &text, char character) {
 	
@@ -21,7 +20,6 @@ int Text::count(const string &text, char character) {
 	return times;
 }
 
-
 /** @return True if @e character is at the last position of @e text. */
 bool Text::endsWith(const string &text, char character) {
 	
@@ -30,7 +28,6 @@ bool Text::endsWith(const string &text, char character) {
 	last = text.length() - 1;
 	return text[last] == character;
 }
-
 
 /** @return Position of first character in text that can be part of a word.
  * 
@@ -50,7 +47,6 @@ int Text::findFirstWordCharacter(const string &text, int pos) {
 	return -1;
 }
 
-
 /** @return Position of first character in text that cannot be part of a word.
  * 
  * @param text String to search
@@ -68,7 +64,6 @@ int Text::findFirstNotWordCharacter(const string &text, int pos) {
 	}
 	return -1;
 }
-
 
 /** @return Start of the first word and its length.
  * 
@@ -90,7 +85,6 @@ pair<int,int> Text::findFirstWord(const string &text, int pos) {
 	return pair<int,int>(beg,end-beg);
 }
 
-
 /** @return String with @e times * 2 spaces. */
 string Text::indent(int times) {
 	
@@ -100,7 +94,6 @@ string Text::indent(int times) {
 	}
 	return stream.str();
 }
-
 
 /** @return Copy of @e text with keys in @e dictionary replaced with values. */
 string Text::replace(const string &text, map<string,string> &dictionary) {
@@ -125,7 +118,6 @@ string Text::replace(const string &text, map<string,string> &dictionary) {
 	return textCopy;
 }
 
-
 /** @return Pair of strings before and after the first occurrence of @e at. */
 pair<string,string> Text::split(const string &text, char at) {
 	
@@ -137,7 +129,6 @@ pair<string,string> Text::split(const string &text, char at) {
 	couple.second = text.substr(pos+1);
 	return couple;
 }
-
 
 /** @return Copy of @e text without any spaces at the beginning. */
 string Text::stripLeadingSpaces(const string &text) {
@@ -151,7 +142,6 @@ string Text::stripLeadingSpaces(const string &text) {
 		return text.substr(pos);
 	}
 }
-
 
 /** @return Copy of @e text without any spaces at the end. */
 string Text::stripTrailingSpaces(const string &text) {
@@ -167,7 +157,6 @@ string Text::stripTrailingSpaces(const string &text) {
 	return text.substr(0, i+1);
 }
 
-
 /** @return String with each character in @e text converted to lowercase. */
 string Text::toLower(string text) {
 	
@@ -179,7 +168,6 @@ string Text::toLower(string text) {
 		text[i] = tolower(text[i]);
 	return text;
 }
-
 
 /** @return Copy of @e text with @e characters removed from start and end. */
 string Text::trim(const string &text, const string &characters) {
