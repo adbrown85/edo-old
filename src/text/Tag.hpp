@@ -24,41 +24,29 @@ public:
 	iterator begin();
 	void clear();
 	iterator end();
-	bool get(const string &key,
-	         bool &value,
-	         bool required=true) const;
-	bool get(const string &key,
-	         char &value,
-	         bool required=true) const;
-	bool get(const string &key,
-	         float &value,
-	         bool required=true) const;
-	bool get(const string &key,
-	         float value[4],
-	         bool required=true) const;
-	bool get(const string &key,
-	         int &value,
-	         bool required=true) const;
-	bool get(const string &key,
-	         string &value,
-	         bool required=true,
-	         bool lowercase=true) const;
-	string getLocation() const;
-	int getLine() const;
-	string getFilename() const;
-	string getName() const;
-	bool hasAttribute(const string &name) const;
-	bool isClosing() const;
-	bool isLeaf() const;
+	bool get(const string &key, bool &value, bool required=true) const;
+	bool get(const string &key, char &value, bool required=true) const;
+	bool get(const string &key, float &value, bool required=true) const;
+	bool get(const string &key, float value[4], bool required=true) const;
+	bool get(const string &key, int &value, bool required=true) const;
+	bool get(const string &k, string &v, bool req=true, bool low=true) const;
 	friend ostream& operator<<(ostream &stream, const Tag &tag);
 	string& operator[](const string &key);
 	string operator[](const string &key) const;
+	static string toLocation(string filename, int line);
+// Getters and setters
+	bool hasAttribute(const string &name) const;
+	bool isClosing() const;
+	string getFilename() const;
+	bool isLeaf() const;
+	int getLine() const;
+	string getLocation() const;
+	string getName() const;
 	void setClosing(bool leaf);
 	void setLeaf(bool leaf);
 	void setLine(int line);
 	void setName(const string &name);
 	void setFilename(const string &filename);
-	static string toLocation(string filename, int line);
 protected:
 	void error(string key) const;
 	void error(string key, string type) const;
