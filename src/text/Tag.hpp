@@ -11,7 +11,6 @@
 #include "BasicException.hpp"
 using namespace std;
 
-
 /** @brief XML tag holding a map of attributes and their values.
  * @ingroup system
  */

@@ -6,13 +6,11 @@
  */
 #include "Tag.hpp"
 
-
 /** Creates an empty tag. */
 Tag::Tag() {
 	
 	clear();
 }
-
 
 /** Creates a tag named @e name. */
 Tag::Tag(const string &name) {
@@ -20,7 +18,6 @@ Tag::Tag(const string &name) {
 	clear();
 	this->name = name;
 }
-
 
 /** Resets the tag to an empty state. */
 void Tag::clear() {
@@ -32,7 +29,6 @@ void Tag::clear() {
 	name = "";
 	attributes.clear();
 }
-
 
 /** @throw BasicException if tag doesn't have an attribute named @e key. */
 void Tag::error(string key) const {
@@ -47,7 +43,6 @@ void Tag::error(string key) const {
 	throw e;
 }
 
-
 /** @throw BasicException if attribute @e key can't be converted to a @e type. */
 void Tag::error(string key, string type) const {
 	
@@ -61,7 +56,6 @@ void Tag::error(string key, string type) const {
 	  << ".";
 	throw e;
 }
-
 
 /** Gets the value of an attribute as a boolean. */
 bool Tag::get(const string &key, bool &value, bool required) const {
@@ -89,7 +83,6 @@ bool Tag::get(const string &key, bool &value, bool required) const {
 	return false;
 }
 
-
 /** Gets the value of an attribute as a character. */
 bool Tag::get(const string &key, char &value, bool required) const {
 	
@@ -108,7 +101,6 @@ bool Tag::get(const string &key, char &value, bool required) const {
 	return false;
 }
 
-
 /** Gets the value of an attribute as a float. */
 bool Tag::get(const string &key, float &value, bool required) const {
 	
@@ -126,7 +118,6 @@ bool Tag::get(const string &key, float &value, bool required) const {
 		error(key);
 	return false;
 }
-
 
 /** Gets the value of a four-value float array. */
 bool Tag::get(const string &key, float value[4], bool required) const {
@@ -151,7 +142,6 @@ bool Tag::get(const string &key, float value[4], bool required) const {
 	return false;
 }
 
-
 /** Gets the value of an attribute as an integer. */
 bool Tag::get(const string &key, int &value, bool required) const {
 	
@@ -169,7 +159,6 @@ bool Tag::get(const string &key, int &value, bool required) const {
 		error(key);
 	return false;
 }
-
 
 /** Gets the value of an attribute as a string.
  * 
@@ -202,13 +191,11 @@ bool Tag::get(const string &key,
 	return false;
 }
 
-
 /** @return String describing the location of the tag in the file. */
 string Tag::getLocation() const {
 	
 	return toLocation(filename, line);
 }
-
 
 /** @return String describing the location of a tag in the file. */
 string Tag::toLocation(string filename, int line) {
@@ -219,7 +206,6 @@ string Tag::toLocation(string filename, int line) {
 	return stream.str();
 }
 
-
 /** @return True if the tag has an attribute named @e name */
 bool Tag::hasAttribute(const string &name) const {
 	
@@ -229,13 +215,11 @@ bool Tag::hasAttribute(const string &name) const {
 	return it != attributes.end();
 }
 
-
 /** Gets and sets an attribute in the tag. */
 string& Tag::operator[](const string &key) {
 	
 	return attributes[Text::toLower(key)];
 }
-
 
 /** Gets an attribute in the tag. */
 string Tag::operator[](const string &key) const {
@@ -249,7 +233,6 @@ string Tag::operator[](const string &key) const {
 		return "";
 	}
 }
-
 
 /** Prints @e tag to @e stream. */
 ostream& operator<<(ostream &stream, const Tag &tag) {
@@ -273,4 +256,3 @@ ostream& operator<<(ostream &stream, const Tag &tag) {
 	}
 	return stream;
 }
-
