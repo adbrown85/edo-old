@@ -4,8 +4,8 @@
  * Author
  *     Andrew Brown <adb1413@rit.edu>
  */
-#ifndef TEXT_HPP
-#define TEXT_HPP
+#ifndef EDO_TEXT_HPP
+#define EDO_TEXT_HPP
 #include "common.h"
 using namespace std;
 

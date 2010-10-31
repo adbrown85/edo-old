@@ -4,8 +4,8 @@
  * Author
  *     Andrew Brown <adb1413@rit.edu>
  */
-#ifndef COMMON_H
-#define COMMON_H
+#ifndef EDO_COMMON_H
+#define EDO_COMMON_H
 
 // Configuration file
 #ifdef HAVE_CONFIG_H

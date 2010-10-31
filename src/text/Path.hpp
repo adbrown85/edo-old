@@ -4,8 +4,8 @@
  * Author
  *     Andrew Brown <adb1413@rit.edu>
  */
-#ifndef PATH_HPP
-#define PATH_HPP
+#ifndef EDO_PATH_HPP
+#define EDO_PATH_HPP
 #include "common.h"
 #include <cctype>
 #include <cstring>

@@ -4,8 +4,8 @@
  * Author
  *     Andrew Brown <adb1413@rit.edu>
  */
-#ifndef PARSER_HPP
-#define PARSER_HPP
+#ifndef EDO_PARSER_HPP
+#define EDO_PARSER_HPP
 #include "common.h"
 #include <fstream>
 #include <vector>

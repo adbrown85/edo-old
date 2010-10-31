@@ -4,8 +4,8 @@
  * Author
  *     Andrew Brown <adb1413@rit.edu>
  */
-#ifndef TAG_HPP
-#define TAG_HPP
+#ifndef EDO_TAG_HPP
+#define EDO_TAG_HPP
 #include "common.h"
 #include "Text.hpp"
 #include "BasicException.hpp"

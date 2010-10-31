@@ -4,8 +4,8 @@
  * Author
  *     Andrew Brown <adb1413@rit.edu>
  */
-#ifndef LOG_HPP
-#define LOG_HPP
+#ifndef EDO_LOG_HPP
+#define EDO_LOG_HPP
 #include "common.h"
 #include <iomanip>                      // For floats
 using namespace std;
