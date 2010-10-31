@@ -1,8 +1,8 @@
 # Initialize
 AC_PREREQ([2.65])
 AC_INIT([EDO], [0.96], [adb1413@rit.edu], , [http://gander.sourceforge.net])
-AC_CONFIG_SRCDIR([src/common.h])
-AC_CONFIG_HEADERS([config.h:config.in])
+AC_CONFIG_SRCDIR([src/edo_common.h])
+AC_CONFIG_HEADERS([edo_config.h:edo_config.in])
 AC_CANONICAL_SYSTEM
 AC_PROG_CXX
 AC_LANG([C++])

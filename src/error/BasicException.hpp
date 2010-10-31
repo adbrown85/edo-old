@@ -6,7 +6,7 @@
  */
 #ifndef EDO_BASIC_EXCEPTION_HPP
 #define EDO_BASIC_EXCEPTION_HPP
-#include "common.h"
+#include "edo_common.h"
 #include <exception>
 using namespace std;
 

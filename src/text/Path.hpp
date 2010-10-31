@@ -6,7 +6,7 @@
  */
 #ifndef EDO_PATH_HPP
 #define EDO_PATH_HPP
-#include "common.h"
+#include "edo_common.h"
 #include <cctype>
 #include <cstring>
 #include <vector>

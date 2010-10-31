@@ -6,7 +6,7 @@
  */
 #ifndef EDO_PARSER_HPP
 #define EDO_PARSER_HPP
-#include "common.h"
+#include "edo_common.h"
 #include <fstream>
 #include <vector>
 #include "BasicException.hpp"

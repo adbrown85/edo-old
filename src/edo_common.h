@@ -9,7 +9,7 @@
 
 // Configuration file
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include "edo_config.h"
 #endif
 
 // C++ STL

@@ -1,13 +1,14 @@
 *.o
 *.d
 *.t
+aclocal.m4
 Makefile
 configure
 config.log
 config.status
 autom4te.cache/
-config.h
-config.in~
+edo_config.h
+edo_config.in~
 libedo.a
 
 .cproject

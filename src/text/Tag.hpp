@@ -6,7 +6,7 @@
  */
 #ifndef EDO_TAG_HPP
 #define EDO_TAG_HPP
-#include "common.h"
+#include "edo_common.h"
 #include "Text.hpp"
 #include "BasicException.hpp"
 using namespace std;

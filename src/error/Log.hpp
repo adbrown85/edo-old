@@ -6,7 +6,7 @@
  */
 #ifndef EDO_LOG_HPP
 #define EDO_LOG_HPP
-#include "common.h"
+#include "edo_common.h"
 #include <iomanip>                      // For floats
 using namespace std;
 

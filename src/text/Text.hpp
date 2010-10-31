@@ -6,7 +6,7 @@
  */
 #ifndef EDO_TEXT_HPP
 #define EDO_TEXT_HPP
-#include "common.h"
+#include "edo_common.h"
 using namespace std;
 
 
