@@ -62,7 +62,7 @@ void TextTest::testFirstNotWordCharacter() {
 	
 	cout << "\nNext first not word character" << endl;
 	text = "    (foo)";
-	pos = Text::findFirstNotWordCharacter(text, pos+1);
+	pos = Text::findFirstNotWordCharacter(text, 5);
 	cout << "  " << pos << endl;
 	assert(pos == 8);
 }
@@ -157,20 +157,8 @@ void TextTest::testStripTrailingSpaces() {
 
 int main(int argc, char *argv[]) {
 	
-	int pos, result;
-	pair<int,int> bounds;
-	string text;
-	
 	TextTest test;
 	
-	// Start
-	cout << endl;
-	cout << "****************************************" << endl;
-	cout << "Text" << endl;
-	cout << "****************************************" << endl;
-	cout << endl;
-	
-	// Test
 	test.setUp();
 	test.testCount();
 	test.testFirstWordCharacter();
@@ -181,13 +169,6 @@ int main(int argc, char *argv[]) {
 	test.testSplit();
 	test.testStripLeadingSpaces();
 	test.testStripTrailingSpaces();
-	
-	// End
-	cout << endl;
-	cout << "****************************************" << endl;
-	cout << "Text" << endl;
-	cout << "****************************************" << endl;
-	cout << endl;
 	return 0;
 }
 
