@@ -6,7 +6,6 @@
  */
 #include "Parser.hpp"
 
-
 /** Moves the input, checking for new lines as it goes. */
 void Parser::advance() {
 	
@@ -16,7 +15,6 @@ void Parser::advance() {
 	}
 }
 
-
 /** Moves the input, checking for new lines as it goes. */
 void Parser::advance(int times) {
 	
@@ -24,7 +22,6 @@ void Parser::advance(int times) {
 		advance();
 	}
 }
-
 
 /** @return Tag created from raw text without '<' and '>'. */
 Tag Parser::create(string text) {
@@ -64,7 +61,6 @@ Tag Parser::create(string text) {
 	return tag;
 }
 
-
 /** Finds the next attribute in <i>stream</i> by counting quotes. */
 string Parser::findAttribute(stringstream &stream) {
 	
@@ -83,7 +79,6 @@ string Parser::findAttribute(stringstream &stream) {
 	}
 	return buffer.str();
 }
-
 
 /** Parses an attribute into a key and value, and then stores it.
  * 
@@ -111,7 +106,6 @@ void Parser::findKeyValue(const string &attribute,
 	tag[key] = value;
 }
 
-
 /** Returns the key in an attribute key/value pair.
  * 
  * @throw BasicException if attribute does not have an equals sign.
@@ -127,7 +121,6 @@ string Parser::findKeyIn(const string &text) {
 	}
 	return Text::trim(text.substr(0, index));
 }
-
 
 /** Returns the value in an attribute key/value pair.
  * 
@@ -145,7 +138,6 @@ string Parser::findValueIn(const string &text) {
 	return Text::trim(text.substr(index+1), " '\"");
 }
 
-
 /** @return Next tag in the file as text without '<' and '>'. */
 string Parser::findTag() {
 	
@@ -159,7 +151,6 @@ string Parser::findTag() {
 	return buffer.str();
 }
 
-
 /** Checks if the current character and the next few matches some text.
  * 
  * @param text String to match against.
@@ -170,7 +161,6 @@ bool Parser::match(const string &text) {
 	// Check if peek matches
 	return peek(text.length()) == text;
 }
-
 
 /** Opens a file and starts parsing it.
  * 
@@ -192,7 +182,6 @@ void Parser::open(string filename) {
 	// Parse it
 	parse();
 }
-
 
 /** Reads XML tags from an input file. */
 void Parser::parse() {
@@ -225,7 +214,6 @@ void Parser::parse() {
 	}
 }
 
-
 /** Looks at <i>length</i> characters of input without consuming them. */
 string Parser::peek(int length) {
 	
@@ -242,7 +230,6 @@ string Parser::peek(int length) {
 	return buffer.str();
 }
 
-
 /** Prints all the tags in the parser. */
 void Parser::print() {
 	
@@ -250,7 +237,6 @@ void Parser::print() {
 	for (size_t i=0; i<tags.size(); ++i)
 		cout << "  " << tags[i] << endl;
 }
-
 
 /** Skips input until it matches <i>text</i>. */
 void Parser::skip(const string &text) {
@@ -261,7 +247,6 @@ void Parser::skip(const string &text) {
 	advance(text.length());
 }
 
-
 /** Skips spaces, newlines, etc. in the input. */
 void Parser::skipWhitespace() {
 	
@@ -269,4 +254,3 @@ void Parser::skipWhitespace() {
 	while (isspace(character))
 		advance();
 }
-

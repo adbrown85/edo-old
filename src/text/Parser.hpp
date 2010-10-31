@@ -14,7 +14,6 @@
 #include "Text.hpp"
 using namespace std;
 
-
 /** @brief Reads an XML file, breaking it up into tags.
  * 
  * <b>Supports</b>
@@ -26,7 +25,7 @@ using namespace std;
  *   - Empty attribute values
  *   - Multiple lines in a tag
  * 
- * @ingroup system
+ * @ingroup text
  */
 class Parser {
 public:
