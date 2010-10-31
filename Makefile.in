@@ -118,7 +118,7 @@ install:
 	@$(INSTALL) -d $(includedir)/$(tarname)
 	@$(INSTALL) -m 0644 config.h $(includedir)/$(tarname)
 	@$(INSTALL) -m 0644 $(srcdir)/common.h $(includedir)/$(tarname)
-	@$(INSTALL) -m 0644 $(srcdir)/*.hpp $(includedir)/$(tarname)
+	@$(INSTALL) -m 0644 $(srcdir)/*/*.hpp $(includedir)/$(tarname)
 uninstall:
 	@echo "  Uninstalling archive from $(libdir)..."
 	@$(RM) $(libdir)/$(archive)
