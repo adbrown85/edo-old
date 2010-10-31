@@ -150,6 +150,7 @@ int main(int argc, char *argv[]) {
 	test.testSplit();
 	test.testStripLeadingSpaces();
 	test.testStripTrailingSpaces();
+	cout << "ALL TESTS PASSED" << endl;
 	return 0;
 }
 
