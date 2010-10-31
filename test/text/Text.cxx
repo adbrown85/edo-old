@@ -19,63 +19,59 @@ public:
 	void testStripLeadingSpaces();
 	void testStripTrailingSpaces();
 	void testSplit();
-protected:
-	void testFirstWordWith(const string &text, int first, int length);
 };
 
 void TextTest::testCount() {
 	
 	int result;
 	
-	cout << "\nTesting count..." << endl;
+	cout << "TextTest::testCount" << endl;
 	result = Text::count("abracadabra", 'a');
-	cout << "  " << result << endl;
 	assert(result == 5);
+	cout << "PASSED" << endl;
 }
 
 void TextTest::testFirstWordCharacter() {
 	
-	int pos;
-	string text;
+	int result;
 	
-	cout << "\nTesting first word character" << endl;
-	text = "    (foo)";
-	pos = Text::findFirstWordCharacter(text, 0);
-	cout << "  " << pos << endl;
-	assert(pos == 5);
+	cout << "TextTest::testFirstWordCharacter" << endl;
+	result = Text::findFirstWordCharacter("    (foo)", 0);
+	assert(result == 5);
+	cout << "PASSED" << endl;
 }
 
 void TextTest::testFirstNotWordCharacter() {
 	
-	int pos;
-	string text;
+	int result;
 	
-	cout << "\nNext first not word character" << endl;
-	text = "    (foo)";
-	pos = Text::findFirstNotWordCharacter(text, 5);
-	cout << "  " << pos << endl;
-	assert(pos == 8);
+	cout << "TextTest::testFirstNotWordCharacter" << endl;
+	result = Text::findFirstNotWordCharacter("    (foo)", 5);
+	assert(result == 8);
+	cout << "PASSED" << endl;
 }
 
 void TextTest::testFirstWord() {
 	
-	cout << "\nFirst word" << endl;
-	testFirstWordWith("    (foo)", 5, 3);
-	testFirstWordWith(" 78 * 45", -1, 0);
-	testFirstWordWith(" 123foobar", 4, 6);
-}
-
-void TextTest::testFirstWordWith(const string &text, int first, int length) {
+	pair<int,int> result;
+	string text;
 	
-	pair<int,int> bounds;
-	
-	bounds = Text::findFirstWord(text, 0);
-	cout << "  " << bounds.first << " " << bounds.second << endl;
-	assert(bounds.first  == first );
-	assert(bounds.second == length);
-	if (bounds.second != 0) {
-		cout << "  " << text.substr(bounds.first,bounds.second) << endl;
-	}
+	cout << "TextTest::testFirstWord" << endl;
+	text = "    (foo)";
+	result = Text::findFirstWord(text);
+	assert(result.first  == 5);
+	assert(result.second == 3);
+	assert(text.substr(result.first,result.second) == "foo");
+	text = " 78 * 45";
+	result = Text::findFirstWord(text);
+	assert(result.first  == -1);
+	assert(result.second == 0);
+	text = " 123foobar";
+	result = Text::findFirstWord(text);
+	assert(result.first  == 4);
+	assert(result.second == 6);
+	assert(text.substr(result.first,result.second) == "foobar");
+	cout << "PASSED" << endl;
 }
 
 void TextTest::testReplacements() {
@@ -83,57 +79,55 @@ void TextTest::testReplacements() {
 	map<string,string> dictionary;
 	string result;
 	
-	cout << "\nReplacements" << endl;
+	cout << "TextTest::testReplacements" << endl;
 	dictionary["PI_CONSTANT"] = "3.14";
 	dictionary["E_CONSTANT"] = "2.72";
 	result = Text::replace("4*PI_CONSTANT + E_CONSTANT BLAH", dictionary);
-	cout << "  " << result << endl;
 	assert(result == "4*3.14 + 2.72 BLAH");
+	cout << "PASSED" << endl;
 }
 
 void TextTest::testTrim() {
 	
 	string result;
 	
-	cout << "\nTrim" << endl;
+	cout << "TextTest::testTrim" << endl;
 	result = Text::trim("  blah blah blah  ");
-	cout << "  '" << result << "'" << endl;
 	assert(result == "blah blah blah");
 	result = Text::trim("  \"blah blah blah\"  ", "'\" ");
-	cout << "  '" << result << "'" << endl;
 	assert(result == "blah blah blah");
+	cout << "PASSED" << endl;
 }
 
 void TextTest::testSplit() {
 	
 	pair<string,string> result;
 	
-	cout << "\nSplit" << endl;
+	cout << "TextTest::testSplit" << endl;
 	result = Text::split("spot.ambient", '.');
-	cout << "  " << result.first << endl;
-	cout << "  " << result.second << endl;
 	assert(result.first == "spot");
 	assert(result.second == "ambient");
+	cout << "PASSED" << endl;
 }
 
 void TextTest::testStripLeadingSpaces() {
 	
 	string result;
 	
-	cout << "\nStrip Leading Spaces" << endl;
+	cout << "TextTest::testStripLeadingSpaces" << endl;
 	result = Text::stripLeadingSpaces("\t // This is a comment");
-	cout << "  " << result << endl;
 	assert(result == "// This is a comment");
+	cout << "PASSED" << endl;
 }
 
 void TextTest::testStripTrailingSpaces() {
 	
 	string result;
 	
-	cout << "\nStrip Trailing Spaces" << endl;
+	cout << "TextTest::testStripTrailingSpaces" << endl;
 	result = Text::stripTrailingSpaces("// This is a comment    ");
-	cout << "  " << result << endl;
 	assert(result == "// This is a comment");
+	cout << "PASSED" << endl;
 }
 
 /* Runs the test. */
