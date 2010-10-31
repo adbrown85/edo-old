@@ -7,10 +7,9 @@
 #include "Text.hpp"
 #include <cassert>
 
-
+/** Test fixture for Text class. */
 class TextTest {
 public:
-	void setUp();
 	void testCount();
 	void testFirstWord();
 	void testFirstWordCharacter();
@@ -24,13 +23,6 @@ protected:
 	void testFirstWordWith(const string &text, int first, int length);
 };
 
-
-void TextTest::setUp() {
-	
-	cout << "Setting up..." << endl;
-}
-
-
 void TextTest::testCount() {
 	
 	int result;
@@ -40,7 +32,6 @@ void TextTest::testCount() {
 	cout << "  " << result << endl;
 	assert(result == 5);
 }
-
 
 void TextTest::testFirstWordCharacter() {
 	
@@ -54,7 +45,6 @@ void TextTest::testFirstWordCharacter() {
 	assert(pos == 5);
 }
 
-
 void TextTest::testFirstNotWordCharacter() {
 	
 	int pos;
@@ -67,7 +57,6 @@ void TextTest::testFirstNotWordCharacter() {
 	assert(pos == 8);
 }
 
-
 void TextTest::testFirstWord() {
 	
 	cout << "\nFirst word" << endl;
@@ -75,7 +64,6 @@ void TextTest::testFirstWord() {
 	testFirstWordWith(" 78 * 45", -1, 0);
 	testFirstWordWith(" 123foobar", 4, 6);
 }
-
 
 void TextTest::testFirstWordWith(const string &text, int first, int length) {
 	
@@ -90,7 +78,6 @@ void TextTest::testFirstWordWith(const string &text, int first, int length) {
 	}
 }
 
-
 void TextTest::testReplacements() {
 	
 	map<string,string> dictionary;
@@ -103,7 +90,6 @@ void TextTest::testReplacements() {
 	cout << "  " << result << endl;
 	assert(result == "4*3.14 + 2.72 BLAH");
 }
-
 
 void TextTest::testTrim() {
 	
@@ -118,7 +104,6 @@ void TextTest::testTrim() {
 	assert(result == "blah blah blah");
 }
 
-
 void TextTest::testSplit() {
 	
 	pair<string,string> result;
@@ -131,7 +116,6 @@ void TextTest::testSplit() {
 	assert(result.second == "ambient");
 }
 
-
 void TextTest::testStripLeadingSpaces() {
 	
 	string result;
@@ -141,7 +125,6 @@ void TextTest::testStripLeadingSpaces() {
 	cout << "  " << result << endl;
 	assert(result == "// This is a comment");
 }
-
 
 void TextTest::testStripTrailingSpaces() {
 	
@@ -153,13 +136,11 @@ void TextTest::testStripTrailingSpaces() {
 	assert(result == "// This is a comment");
 }
 
-
-
+/* Runs the test. */
 int main(int argc, char *argv[]) {
 	
 	TextTest test;
 	
-	test.setUp();
 	test.testCount();
 	test.testFirstWordCharacter();
 	test.testFirstNotWordCharacter();
