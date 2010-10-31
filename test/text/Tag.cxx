@@ -7,7 +7,6 @@
 #include <cassert>
 #include "Tag.hpp"
 
-
 class TagTest {
 public:
 	void testCreate();
@@ -15,7 +14,6 @@ public:
 private:
 	Tag tag;
 };
-
 
 void TagTest::testCreate() {
 	
@@ -28,7 +26,6 @@ void TagTest::testCreate() {
 	assert(tag["file"] == "/foo/Bar");
 	cout << "PASSED" << endl;
 }
-
 
 void TagTest::testGetArray() {
 	
@@ -43,7 +40,6 @@ void TagTest::testGetArray() {
 	assert(value[3] == -5.9f);
 	cout << "PASSED" << endl;
 }
-
 
 int main() {
 	
