@@ -126,7 +126,7 @@ string Text::replace(const string &text, map<string,string> &dictionary) {
 }
 
 
-/** @return Pair of strings before and after the first occurence of @e at. */
+/** @return Pair of strings before and after the first occurrence of @e at. */
 pair<string,string> Text::split(const string &text, char at) {
 	
 	size_t pos;
