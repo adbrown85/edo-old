@@ -65,7 +65,7 @@ fi
 htmldir='${docdir}'/html
 
 # Finish
-AC_CONFIG_FILES([Makefile doc/Makefile])
+AC_CONFIG_FILES([edo.pc Makefile doc/Makefile])
 AC_OUTPUT
 
 echo \

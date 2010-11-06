@@ -6,6 +6,7 @@ Makefile
 configure
 config.log
 config.status
+edo.pc
 autom4te.cache/
 config.h
 config.in~
