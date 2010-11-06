@@ -7,8 +7,8 @@ configure
 config.log
 config.status
 autom4te.cache/
-edo_config.h
-edo_config.in~
+config.h
+config.in~
 libedo.a
 
 .cproject

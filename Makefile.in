@@ -103,7 +103,7 @@ endif
 %.t: %.cxx
 	@echo "  Generating dependencies for $<..."
 	@$(CXX) $(CXXFLAGS) -MM $< -MT ${subst .cxx,,$<} \
-        | sed 's/.hpp/.o/g' >> $@;
+        | sed 's/.hpp/.o/g' > $@;
 ifeq ($(findstring tests,$(MAKECMDGOALS)),tests)
   -include $(tdepends)
 endif
@@ -117,7 +117,7 @@ install:
 	@echo "  Installing headers in $(includedir)/$(tarname)..."
 	@$(INSTALL) -d $(includedir)/$(tarname)
 	@$(INSTALL) -m 0644 config.h $(includedir)/$(tarname)
-	@$(INSTALL) -m 0644 $(srcdir)/common.h $(includedir)/$(tarname)
+	@$(INSTALL) -m 0644 $(srcdir)/edo_common.h $(includedir)/$(tarname)
 	@$(INSTALL) -m 0644 $(srcdir)/*/*.hpp $(includedir)/$(tarname)
 uninstall:
 	@echo "  Uninstalling archive from $(libdir)..."
