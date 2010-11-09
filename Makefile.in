@@ -40,7 +40,6 @@ sources      := ${foreach m,$(modules),${wildcard $(srcdir)/$(m)/*.cpp}}
 objects      := ${subst .cpp,.o,$(sources)}
 headers      := ${subst .cpp,.hpp,$(sources)}
 mains        := ${wildcard $(testdir)/*/*.cxx}
-archive      := lib$(tarname).a
 library      := lib$(tarname).so.1.0.1
 pkgcfgfile   := $(tarname).pc
 tests        := ${subst .cxx,,$(mains)}
@@ -55,7 +54,7 @@ tdepends     := ${subst .cxx,.t,$(mains)}
 doc_targets  := html install-html
 .PHONY: all clean mostlyclean tests $(doctargets) dump
 .DEFAULT: all
-all: $(archive) $(library)
+all: $(library)
 clean: mostlyclean
 	@echo "  Removing dependencies..."
 	@$(RM) $(depends)
@@ -63,8 +62,8 @@ clean: mostlyclean
 mostlyclean:
 	@echo "  Removing objects..."
 	@$(RM) $(objects)
-	@echo "  Removing archive..."
-	@$(RM) $(archive)
+	@echo "  Removing library..."
+	@$(RM) $(library)
 	@echo "  Removing tests..."
 	@$(RM) $(tests)
 $(doc_targets):
@@ -84,13 +83,11 @@ $(1): $${notdir $${filter $(srcdir)/$(1)/%.o,$(objects)}}
 endef
 ${foreach m,$(modules),${eval ${call module,$(m)}}}
 
-# Objects and archive
+# Objects and library
 ${notdir $(objects)}:
 %.o: %.cpp %.hpp
 	@echo "  $<"
 	@$(CXX) $(CXXFLAGS) -o ${dir $<}${notdir $@} -c $<
-	@$(AR) $(ARFLAGS) $(archive) ${dir $<}${notdir $@}
-$(archive): ${notdir $(objects)}
 $(library): ${notdir $(objects)}
 	@echo "  $@"
 	@$(CXX) -shared -Wl,-soname,$(soname) -o $(library) $(objects)
@@ -98,7 +95,7 @@ $(library): ${notdir $(objects)}
 # Tests
 %: %.cxx
 	@echo "  $<"
-	@$(CXX) $(CXXFLAGS) -o $@ $< $(archive) $(LDFLAGS)
+	@$(CXX) $(CXXFLAGS) -o $@ $< ${filter %.o,$^} $(LDFLAGS)
 tests: ${notdir $(tests)}
 ${notdir $(tests)}:
 
@@ -133,8 +130,10 @@ install:
 	@echo "  Installing pkg-config file in $(pkgcfgdir)..."
 	@$(INSTALL) -m 0644 $(pkgcfgfile) $(pkgcfgdir)
 uninstall:
-	@echo "  Uninstalling archive from $(libdir)..."
-	@$(RM) $(libdir)/$(archive)
+	@echo "  Uninstalling library from $(libdir)..."
+	@$(RM) $(libdir)/$(library)
+	@$(RM) $(libdir)/$(linkername)
+	@ldconfig $(libdir)
 	@echo "  Uninstalling headers from $(includedir)/$(tarname)..."
 	@$(RM) -r $(includedir)/$(tarname)
 	@echo "  Uninstalling pkg-config file from $(pkgcfgdir)..."
