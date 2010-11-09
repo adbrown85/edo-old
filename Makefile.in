@@ -4,6 +4,9 @@
 package      := @PACKAGE_NAME@
 version      := @PACKAGE_VERSION@
 tarname      := @PACKAGE_TARNAME@
+linkername   := lib$(tarname).so
+soname       := lib$(tarname).so.1
+
 
 # Directories
 prefix       := @prefix@
@@ -26,7 +29,7 @@ modules      := ${patsubst $(srcdir)/%/,%,$(smoduledirs)}
 CXX          := @CXX@
 INCLUDES     := -I./ -I$(srcdir)/ ${addprefix -I,$(smoduledirs)}
 DEFS         := @DEFS@
-CXXFLAGS     := @CXXFLAGS@ $(DEFS) $(INCLUDES)
+CXXFLAGS     := @CXXFLAGS@ -fPIC $(DEFS) $(INCLUDES)
 LIBS         := @LIBS@
 LDFLAGS      := @LDFLAGS@ $(LIBS)
 ARFLAGS      := -cr
@@ -38,6 +41,7 @@ objects      := ${subst .cpp,.o,$(sources)}
 headers      := ${subst .cpp,.hpp,$(sources)}
 mains        := ${wildcard $(testdir)/*/*.cxx}
 archive      := lib$(tarname).a
+library      := lib$(tarname).so.1.0.1
 pkgcfgfile   := $(tarname).pc
 tests        := ${subst .cxx,,$(mains)}
 tarball      := $(tarname)-$(version)-src.tar.gz
@@ -51,7 +55,7 @@ tdepends     := ${subst .cxx,.t,$(mains)}
 doc_targets  := html install-html
 .PHONY: all clean mostlyclean tests $(doctargets) dump
 .DEFAULT: all
-all: $(archive)
+all: $(archive) $(library)
 clean: mostlyclean
 	@echo "  Removing dependencies..."
 	@$(RM) $(depends)
@@ -81,12 +85,15 @@ endef
 ${foreach m,$(modules),${eval ${call module,$(m)}}}
 
 # Objects and archive
+${notdir $(objects)}:
 %.o: %.cpp %.hpp
 	@echo "  $<"
 	@$(CXX) $(CXXFLAGS) -o ${dir $<}${notdir $@} -c $<
 	@$(AR) $(ARFLAGS) $(archive) ${dir $<}${notdir $@}
 $(archive): ${notdir $(objects)}
-${notdir $(objects)}:
+$(library): ${notdir $(objects)}
+	@echo "  $@"
+	@$(CXX) -shared -Wl,-soname,$(soname) -o $(library) $(objects)
 
 # Tests
 %: %.cxx
@@ -113,9 +120,11 @@ endif
 # Installation
 .PHONY: install uninstall
 install:
-	@echo "  Installing archive in $(libdir)..."
+	@echo "  Installing library in $(libdir)..."
 	@$(INSTALL) -d $(libdir)
-	@$(INSTALL) -m 0644 $(archive) $(libdir)
+	@$(INSTALL) -m 0644 $(library) $(libdir)
+	@ln -s -f -T $(libdir)/$(library) $(libdir)/$(linkername)
+	@ldconfig $(libdir)
 	@echo "  Installing headers in $(includedir)/$(tarname)..."
 	@$(INSTALL) -d $(includedir)/$(tarname)
 	@$(INSTALL) -m 0644 config.h $(includedir)/$(tarname)

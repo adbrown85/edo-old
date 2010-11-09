@@ -11,6 +11,7 @@ autom4te.cache/
 config.h
 config.in~
 libedo.a
+libedo.so.*
 
 .cproject
 .project
