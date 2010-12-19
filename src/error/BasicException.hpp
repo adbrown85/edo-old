@@ -18,9 +18,9 @@ public:
 	BasicException() {};
 	BasicException(const BasicException &e);
 	BasicException(const string &message);
-	~BasicException() throw() {}
-	string getMessage() const;
-	const char* what() const throw();
+	virtual ~BasicException() throw() {}
+	virtual string getMessage() const;
+	virtual const char* what() const throw();
 	ostream& operator<<(const string &message);
 	ostream& operator<<(const BasicException &e);
 private:
