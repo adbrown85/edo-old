@@ -76,6 +76,12 @@ string Path::getExtension(const string &path) {
 	return path.substr(pos + 1);
 }
 
+/** @return Text after the last '.' in @e path converted to lowercase. */
+string Path::getExtensionLower(const string &path) {
+	
+	return Text::toLower(getExtension(path));
+}
+
 
 /** @return directories between root and filename. */
 string Path::getInternals(const string& path) {
