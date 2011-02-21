@@ -126,6 +126,7 @@ install:
 	@$(INSTALL) -m 0644 $(srcdir)/edo_common.h $(includedir)/$(tarname)
 	@$(INSTALL) -m 0644 $(srcdir)/*/*.hpp $(includedir)/$(tarname)
 	@echo "  Installing pkg-config file in $(pkgcfgdir)..."
+	@mkdir -p $(pkgcfgdir)
 	@$(INSTALL) -m 0644 $(pkgcfgfile) $(pkgcfgdir)
 uninstall:
 	@echo "  Uninstalling library from $(libdir)..."
