@@ -11,8 +11,7 @@
 using namespace std;
 
 
-/** @brief %BasicException backed by a stringstream for easy message building.
- */
+/** @brief Basic exception backed by a stream for easy message building. */
 class BasicException : public exception {
 public:
 	BasicException() {};
